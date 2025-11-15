@@ -1,0 +1,1 @@
+This is my personal portfolio website built using HTML, CSS, and JavaScript. It showcases my skills, featured projects, and Figma design prototypes. The site includes a clean UI, responsive layout, and a light/dark theme toggle. It also provides links to my resume, social profiles, and contact information.
