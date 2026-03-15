@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -641,74 +641,6 @@
         75%, 100% { transform: scale(2); opacity: 0; }
     }
 
-    /* --- ADVANCED UNIQUE EFFECTS --- */
-    @media (min-width: 769px) {
-        body { cursor: none; }
-        a, button, .theme-toggle, .about-floating-card, .astronaut { cursor: none !important; }
-    }
-    
-    .custom-cursor-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--accent-main);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 99999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s, background-color 0.2s;
-        display: none;
-    }
-    .custom-cursor-ring {
-        width: 40px;
-        height: 40px;
-        border: 2px solid var(--accent-main);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 99998;
-        transform: translate(-50%, -50%);
-        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s, transform 0.1s;
-        display: none;
-    }
-    
-    @media (min-width: 769px) {
-        .custom-cursor-dot, .custom-cursor-ring { display: block; }
-    }
-
-    .custom-cursor-dot.hover {
-        transform: translate(-50%, -50%) scale(0.1);
-        background: transparent;
-    }
-    .custom-cursor-ring.hover {
-        width: 60px;
-        height: 60px;
-        background: rgba(37, 99, 235, 0.05);
-        border: 1px dashed var(--accent-main);
-        animation: spin-ring 4s linear infinite;
-    }
-    @keyframes spin-ring {
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-    
-    .btn, .social-btn, .nav-links a, .theme-toggle {
-        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s, color 0.3s, box-shadow 0.3s;
-        will-change: transform;
-    }
-
-    .astronaut {
-        position: fixed;
-        font-size: 3rem;
-        z-index: 9990;
-        pointer-events: auto;
-        user-select: none;
-        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
-        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .astronaut.spin {
-        transform: scale(1.5) rotate(720deg) !important;
-    }
-
     /* Responsive */
     @media (max-width: 900px) {
       .hero, .about-content, .contact-content {
@@ -1120,123 +1052,6 @@
                 setTimeout(() => this.classList.remove('wobble'), 500);
             });
         });
-
-        // 6. Custom Cursor & Magnetic Buttons
-        if (window.innerWidth > 768) {
-            const dot = document.createElement('div');
-            dot.className = 'custom-cursor-dot';
-            const ring = document.createElement('div');
-            ring.className = 'custom-cursor-ring';
-            document.body.appendChild(dot);
-            document.body.appendChild(ring);
-
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let ringX = mouseX;
-            let ringY = mouseY;
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                dot.style.left = mouseX + 'px';
-                dot.style.top = mouseY + 'px';
-            });
-
-            function animateCursor() {
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
-                ring.style.left = ringX + 'px';
-                ring.style.top = ringY + 'px';
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            const interactables = document.querySelectorAll('a, button, .project-card, .skill-category-card, .logo, .social-btn, .theme-toggle, .about-floating-card, .astronaut');
-            
-            // Re-apply hover listeners to dynamic elements via body delegation for astronaut
-            document.body.addEventListener('mouseover', (e) => {
-                if(e.target.closest('a') || e.target.closest('button') || e.target.closest('.project-card') || 
-                   e.target.closest('.skill-category-card') || e.target.closest('.logo') || 
-                   e.target.closest('.social-btn') || e.target.closest('.theme-toggle') || 
-                   e.target.closest('.about-floating-card') || e.target.closest('.astronaut')) {
-                    dot.classList.add('hover');
-                    ring.classList.add('hover');
-                }
-            });
-            document.body.addEventListener('mouseout', (e) => {
-                if(e.target.closest('a') || e.target.closest('button') || e.target.closest('.project-card') || 
-                   e.target.closest('.skill-category-card') || e.target.closest('.logo') || 
-                   e.target.closest('.social-btn') || e.target.closest('.theme-toggle') || 
-                   e.target.closest('.about-floating-card') || e.target.closest('.astronaut')) {
-                    dot.classList.remove('hover');
-                    ring.classList.remove('hover');
-                }
-            });
-
-            // Magnetic Buttons
-            const magneticEls = document.querySelectorAll('.btn, .nav-links a, .social-btn, .theme-toggle');
-            magneticEls.forEach(el => {
-                el.addEventListener('mousemove', (e) => {
-                    const rect = el.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-                });
-                el.addEventListener('mouseleave', () => {
-                    el.style.transform = '';
-                });
-            });
-        }
-
-        // 7. Floating Astronaut Easter Egg
-        const astronaut = document.createElement('div');
-        astronaut.className = 'astronaut';
-        astronaut.textContent = '🧑‍🚀';
-        document.body.appendChild(astronaut);
-
-        let astroX = Math.random() * window.innerWidth;
-        let astroY = window.innerHeight + 100;
-        let astroVx = (Math.random() - 0.5) * 1.5;
-        let astroVy = - (Math.random() * 1.0 + 0.5); // float slowly up
-        let astroAngle = 0;
-        let astroSpinSpeed = (Math.random() - 0.5) * 1;
-
-        function animateAstronaut() {
-            astroX += astroVx;
-            astroY += astroVy;
-            astroAngle += astroSpinSpeed;
-
-            // Horizontal wrap around
-            if (astroX < -50) astroX = window.innerWidth + 50;
-            if (astroX > window.innerWidth + 50) astroX = -50;
-            // Vertical reset
-            if (astroY < -100) {
-                astroY = window.innerHeight + 100;
-                astroX = Math.random() * window.innerWidth;
-            }
-
-            if (!astronaut.classList.contains('spin')) {
-                astronaut.style.left = astroX + 'px';
-                astronaut.style.top = astroY + 'px';
-                astronaut.style.transform = `rotate(${astroAngle}deg)`;
-            }
-
-            requestAnimationFrame(animateAstronaut);
-        }
-        animateAstronaut();
-
-        astronaut.addEventListener('click', (e) => {
-            astronaut.classList.add('spin');
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // blast off to top func!
-            
-            // Double confetti explosion
-            createConfetti(e.clientX, e.clientY);
-            setTimeout(() => createConfetti(e.clientX, e.clientY), 200);
-
-            setTimeout(() => {
-                astronaut.classList.remove('spin');
-            }, 1000);
-        });
     }
 
     // Lightweight VanillaTilt
@@ -1287,3 +1102,8 @@
   </script>
 </body>
 </html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+print("index.html generated successfully!")
