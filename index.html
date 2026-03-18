@@ -352,7 +352,8 @@
         font-weight: 500;
     }
     .about-list li i {
-        color: #10b981;
+        color: var(--accent-main);
+        font-size: 0.9rem;
     }
 
     /* Skills / Capabilities */
@@ -643,70 +644,13 @@
 
     /* --- ADVANCED UNIQUE EFFECTS --- */
     @media (min-width: 769px) {
-        body { cursor: none; }
-        a, button, .theme-toggle, .about-floating-card, .astronaut { cursor: none !important; }
-    }
-    
-    .custom-cursor-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--accent-main);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 99999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s, background-color 0.2s;
-        display: none;
-    }
-    .custom-cursor-ring {
-        width: 40px;
-        height: 40px;
-        border: 2px solid var(--accent-main);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 99998;
-        transform: translate(-50%, -50%);
-        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s, transform 0.1s;
-        display: none;
-    }
-    
-    @media (min-width: 769px) {
-        .custom-cursor-dot, .custom-cursor-ring { display: block; }
-    }
-
-    .custom-cursor-dot.hover {
-        transform: translate(-50%, -50%) scale(0.1);
-        background: transparent;
-    }
-    .custom-cursor-ring.hover {
-        width: 60px;
-        height: 60px;
-        background: rgba(37, 99, 235, 0.05);
-        border: 1px dashed var(--accent-main);
-        animation: spin-ring 4s linear infinite;
-    }
-    @keyframes spin-ring {
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
+        body { cursor: auto; }
+        a, button, .theme-toggle, .about-floating-card { cursor: auto !important; }
     }
     
     .btn, .social-btn, .nav-links a, .theme-toggle {
         transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s, color 0.3s, box-shadow 0.3s;
         will-change: transform;
-    }
-
-    .astronaut {
-        position: fixed;
-        font-size: 3rem;
-        z-index: 9990;
-        pointer-events: auto;
-        user-select: none;
-        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
-        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .astronaut.spin {
-        transform: scale(1.5) rotate(720deg) !important;
     }
 
     /* Responsive */
@@ -733,7 +677,7 @@
     <div class="container">
       <div class="logo" id="main-logo" style="cursor: pointer; user-select: none;">
           <i class="fas fa-code logo-icon"></i>
-          Anvesha
+          Anvesha Khandelwal
       </div>
       
       <div class="nav-menus">
@@ -780,7 +724,7 @@
                 <div class="about-image">
                     <i class="fas fa-terminal"></i>
                     <div class="about-floating-card" style="cursor: pointer;" id="stat-card-1">
-                        <h3>9.55</h3>
+                        <h3>9.42</h3>
                         <p>CGPA</p>
                     </div>
                 </div>
@@ -789,13 +733,13 @@
                         <p>Discover</p>
                         <h2>About Me</h2>
                     </div>
-                    <p>I'm a second-year Computer Science Engineering student passionate about turning ideas into reality. My journey sits at the intersection of modern web development and artificial intelligence.</p>
-                    <p>I believe in learning by building, prioritizing clean code, and iterating until the product truly shines.</p>
+                    <p>Hi, I’m Anvesha— a second-year CS Engineering student building user-first products with a blend of strong engineering discipline and a creative edge. I love converting complex AI concepts into practical web experiences that feel smooth and intentional.</p>
+                    <p>My approach: prototype fast, code clean, and ship features that make people say “wow, that just works.”</p>
                     
                     <ul class="about-list">
-                        <li><i class="fas fa-check-circle"></i> Building intelligent scheduling algorithms.</li>
-                        <li><i class="fas fa-check-circle"></i> Developing accessible AI tools for visual impairment.</li>
-                        <li><i class="fas fa-check-circle"></i> Creating functional, user-centric web applications.</li>
+                        <li><i class="fas fa-rocket"></i> Crafting intelligent schedule solvers with a human touch.</li>
+                        <li><i class="fas fa-lightbulb"></i> Developing accessible AI tools for visual impairment.</li>
+                        <li><i class="fas fa-meteor"></i> Creating functional, user-centric web applications.</li>
                     </ul>
                 </div>
             </div>
@@ -915,11 +859,11 @@
                 <div class="contact-form">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" placeholder="John Doe">
+                        <input type="text" class="form-control" placeholder="anvesha">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" placeholder="john@example.com">
+                        <input type="email" class="form-control" placeholder="ak@example.com">
                     </div>
                     <div class="form-group">
                         <label>Message</label>
@@ -932,11 +876,11 @@
       </section>
   </main>
 
-  <footer>
+  <!-- <footer>
       <div class="container">
           <p>&copy; 2026 Anvesha Khandelwal. Built with professional aesthetics and a touch of coolness.</p>
       </div>
-  </footer>
+  </footer> -->
 
   <script>
     // 1. Theme Logic
@@ -1121,121 +1065,18 @@
             });
         });
 
-        // 6. Custom Cursor & Magnetic Buttons
-        if (window.innerWidth > 768) {
-            const dot = document.createElement('div');
-            dot.className = 'custom-cursor-dot';
-            const ring = document.createElement('div');
-            ring.className = 'custom-cursor-ring';
-            document.body.appendChild(dot);
-            document.body.appendChild(ring);
-
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let ringX = mouseX;
-            let ringY = mouseY;
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                dot.style.left = mouseX + 'px';
-                dot.style.top = mouseY + 'px';
+        // 6. Magnetic buttons only (without custom cursor overlay)
+        const magneticEls = document.querySelectorAll('.btn, .nav-links a, .social-btn, .theme-toggle');
+        magneticEls.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
             });
-
-            function animateCursor() {
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
-                ring.style.left = ringX + 'px';
-                ring.style.top = ringY + 'px';
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            const interactables = document.querySelectorAll('a, button, .project-card, .skill-category-card, .logo, .social-btn, .theme-toggle, .about-floating-card, .astronaut');
-            
-            // Re-apply hover listeners to dynamic elements via body delegation for astronaut
-            document.body.addEventListener('mouseover', (e) => {
-                if(e.target.closest('a') || e.target.closest('button') || e.target.closest('.project-card') || 
-                   e.target.closest('.skill-category-card') || e.target.closest('.logo') || 
-                   e.target.closest('.social-btn') || e.target.closest('.theme-toggle') || 
-                   e.target.closest('.about-floating-card') || e.target.closest('.astronaut')) {
-                    dot.classList.add('hover');
-                    ring.classList.add('hover');
-                }
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
             });
-            document.body.addEventListener('mouseout', (e) => {
-                if(e.target.closest('a') || e.target.closest('button') || e.target.closest('.project-card') || 
-                   e.target.closest('.skill-category-card') || e.target.closest('.logo') || 
-                   e.target.closest('.social-btn') || e.target.closest('.theme-toggle') || 
-                   e.target.closest('.about-floating-card') || e.target.closest('.astronaut')) {
-                    dot.classList.remove('hover');
-                    ring.classList.remove('hover');
-                }
-            });
-
-            // Magnetic Buttons
-            const magneticEls = document.querySelectorAll('.btn, .nav-links a, .social-btn, .theme-toggle');
-            magneticEls.forEach(el => {
-                el.addEventListener('mousemove', (e) => {
-                    const rect = el.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-                });
-                el.addEventListener('mouseleave', () => {
-                    el.style.transform = '';
-                });
-            });
-        }
-
-        // 7. Floating Astronaut Easter Egg
-        const astronaut = document.createElement('div');
-        astronaut.className = 'astronaut';
-        astronaut.textContent = '🧑‍🚀';
-        document.body.appendChild(astronaut);
-
-        let astroX = Math.random() * window.innerWidth;
-        let astroY = window.innerHeight + 100;
-        let astroVx = (Math.random() - 0.5) * 1.5;
-        let astroVy = - (Math.random() * 1.0 + 0.5); // float slowly up
-        let astroAngle = 0;
-        let astroSpinSpeed = (Math.random() - 0.5) * 1;
-
-        function animateAstronaut() {
-            astroX += astroVx;
-            astroY += astroVy;
-            astroAngle += astroSpinSpeed;
-
-            // Horizontal wrap around
-            if (astroX < -50) astroX = window.innerWidth + 50;
-            if (astroX > window.innerWidth + 50) astroX = -50;
-            // Vertical reset
-            if (astroY < -100) {
-                astroY = window.innerHeight + 100;
-                astroX = Math.random() * window.innerWidth;
-            }
-
-            if (!astronaut.classList.contains('spin')) {
-                astronaut.style.left = astroX + 'px';
-                astronaut.style.top = astroY + 'px';
-                astronaut.style.transform = `rotate(${astroAngle}deg)`;
-            }
-
-            requestAnimationFrame(animateAstronaut);
-        }
-        animateAstronaut();
-
-        astronaut.addEventListener('click', (e) => {
-            astronaut.classList.add('spin');
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // blast off to top func!
-            
-            // Double confetti explosion
-            createConfetti(e.clientX, e.clientY);
-            setTimeout(() => createConfetti(e.clientX, e.clientY), 200);
-
-            setTimeout(() => {
-                astronaut.classList.remove('spin');
-            }, 1000);
         });
     }
 
