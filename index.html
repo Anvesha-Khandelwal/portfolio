@@ -277,9 +277,16 @@
       text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0;
       border: 1px solid var(--border-color);
     }
+    .exp-badge.exp-badge-ai { background: rgba(232,83,58,0.1); color: var(--accent-pop); border-color: rgba(232,83,58,0.3); }
     .exp-org { font-size: 0.9rem; color: var(--accent-pop); font-weight: 600; margin-bottom: 0.5rem; }
     .exp-period { font-size: 0.82rem; color: var(--text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
     .exp-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+    .exp-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .exp-stack span {
+      font-size: 0.72rem; font-weight: 600; padding: 0.22rem 0.55rem;
+      border-radius: 4px; background: var(--bg-card); border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
 
     /* ── SKILLS ── */
     .skills { padding: 8rem 0; background: var(--bg-surface); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
@@ -291,14 +298,23 @@
       background: var(--bg-card); border: 1px solid var(--border-color);
       border-radius: 16px; padding: 2rem;
       transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      position: relative;
     }
     .skill-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .skill-card.skill-featured { border-color: var(--accent-pop); box-shadow: 0 0 0 1px rgba(232,83,58,0.15); }
     .skill-icon {
       width: 48px; height: 48px; border-radius: 10px;
       background: var(--bg-surface); border: 1px solid var(--border-color);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.3rem; color: var(--accent-pop); margin-bottom: 1.2rem;
     }
+    .skill-card-head { display: flex; justify-content: space-between; align-items: flex-start; }
+    .skill-tier {
+      font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 0.25rem 0.55rem; border-radius: 4px;
+      background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-tertiary);
+    }
+    .skill-tier.tier-core { color: var(--accent-pop); border-color: rgba(232,83,58,0.35); background: rgba(232,83,58,0.08); }
     .skill-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1.2rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .tag {
@@ -316,6 +332,7 @@
     }
     .projects-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-auto-flow: dense;
       gap: 1.5rem;
     }
     @media (max-width: 1000px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -328,6 +345,9 @@
       transition: border-color 0.3s, box-shadow 0.3s, transform 0.35s;
     }
     .project-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .project-card.project-flagship { grid-column: span 2; }
+    @media (max-width: 1000px) { .project-card.project-flagship { grid-column: span 2; } }
+    @media (max-width: 620px) { .project-card.project-flagship { grid-column: span 1; } }
 
     .project-img-wrap { height: 200px; overflow: hidden; position: relative; background: var(--bg-card); flex-shrink: 0; }
     .project-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
@@ -336,7 +356,58 @@
       height: 200px; background: var(--bg-card);
       display: flex; align-items: center; justify-content: center;
       font-size: 2.5rem; color: var(--text-tertiary); flex-shrink: 0;
+      position: relative; overflow: hidden;
     }
+
+    /* Flagship AI project header: mock terminal + role ticker */
+    .flagship-visual {
+      height: 220px; background: var(--accent-main);
+      position: relative; flex-shrink: 0; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center; padding: 1.5rem 1.75rem;
+    }
+    html.dark .flagship-visual { background: #14141f; }
+    .flagship-visual .fv-dots { display: flex; gap: 0.4rem; margin-bottom: 1rem; }
+    .flagship-visual .fv-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .flagship-visual .fv-dots span:nth-child(1) { background: #ff6259; }
+    .flagship-visual .fv-dots span:nth-child(2) { background: #ffbd2e; }
+    .flagship-visual .fv-dots span:nth-child(3) { background: #28c93f; }
+    .fv-line { color: rgba(255,255,255,0.55); font-family: 'DM Sans', monospace; font-size: 0.82rem; margin-bottom: 0.5rem; }
+    .fv-role-ticker {
+      font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff;
+      display: flex; align-items: center; gap: 0.6rem; min-height: 2rem;
+    }
+    .fv-role-ticker .fv-caret { color: var(--accent-pop); animation: caret-blink 1s steps(1) infinite; }
+    @keyframes caret-blink { 50% { opacity: 0; } }
+    .fv-role-word { transition: opacity 0.25s ease; }
+
+    /* VoiceBridge flagship variant — mic + waveform */
+    .flagship-visual-voice { background: #101820; justify-content: center; }
+    html.dark .flagship-visual-voice { background: #0c1218; }
+    .fv-mic-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+    .fv-mic-icon {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(58,122,232,0.18); color: var(--accent-pop2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+    }
+    .fv-wave { display: flex; align-items: center; gap: 4px; height: 30px; }
+    .fv-wave span {
+      width: 4px; border-radius: 2px; background: var(--accent-pop2);
+      height: 8px; animation: wave-pulse 1.1s ease-in-out infinite;
+    }
+    .fv-wave span:nth-child(1) { animation-delay: 0s; }
+    .fv-wave span:nth-child(2) { animation-delay: 0.1s; }
+    .fv-wave span:nth-child(3) { animation-delay: 0.2s; }
+    .fv-wave span:nth-child(4) { animation-delay: 0.3s; }
+    .fv-wave span:nth-child(5) { animation-delay: 0.4s; }
+    .fv-wave span:nth-child(6) { animation-delay: 0.3s; }
+    .fv-wave span:nth-child(7) { animation-delay: 0.2s; }
+    .fv-wave span:nth-child(8) { animation-delay: 0.1s; }
+    @keyframes wave-pulse {
+      0%, 100% { height: 8px; }
+      50% { height: 26px; }
+    }
+    .fv-role-ticker-voice { font-size: 1.15rem; color: #fff; font-weight: 600; font-style: italic; }
+    .fv-caret-voice { color: var(--accent-pop2); }
 
     .project-body { padding: 1.6rem; display: flex; flex-direction: column; flex: 1; }
     .project-body h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
@@ -367,6 +438,8 @@
       transition: all 0.25s;
     }
     .btn-view:hover { background: var(--text-main); color: var(--bg-base); border-color: var(--text-main); }
+    .btn-view.in-progress { cursor: default; }
+    .btn-view.in-progress:hover { background: var(--bg-card); color: var(--text-main); border-color: var(--border-color); }
 
     /* ── CONTACT ── */
     .contact { padding: 8rem 0; background: var(--bg-surface); border-top: 1px solid var(--border-color); }
@@ -479,7 +552,7 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="./Resume_2nd (2).pdf" target="_blank" rel="noopener noreferrer" class="btn-resume-nav" id="resume-btn">
+        <a href="./Anvesha_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-resume-nav" id="resume-btn">
           <i class="fas fa-file-arrow-down"></i>
           Resume
         </a>
@@ -496,22 +569,22 @@
       <div class="hero-content">
         <div class="hero-badge">
           <div class="ping"></div>
-          Open to opportunities
+          Open to AI/ML Internships
         </div>
         <div class="hero-role-bar">
-          <span>Web Dev</span>
+          <span>AI/ML Engineer</span>
           <span class="role-sep"></span>
-          <span>AI Engineer</span>
+          <span>Backend &amp; Systems</span>
           <span class="role-sep"></span>
-          <span>Builder</span>
+          <span>Full Stack</span>
         </div>
         <h1 class="hero-title">
-          Crafting<br>
-          Digital<br>
-          <em>Experiences.</em>
+          Building<br>
+          Intelligent<br>
+          <em>Systems.</em>
         </h1>
         <p class="hero-subtitle">
-          I build intelligent web applications and automation tools with a sharp focus on real-world impact and user-first design.
+          I design and ship AI-powered products end-to-end — RAG pipelines, LLM-backed APIs, forecasting models, and the full-stack systems that put them in front of real users.
         </p>
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">See My Work <i class="fas fa-arrow-right" style="font-size:0.75rem"></i></a>
@@ -540,12 +613,12 @@
         <div class="about-text fade-up">
           <div class="section-label">Discover</div>
           <h2>About Me</h2>
-          <p>Hi, I'm Anvesha Khandelwal, a second-year CS student at the intersection of AI and web development. I love simplifying complex ideas into clean, intuitive digital experiences.</p>
-          <p>Beyond building, I actively work on data structures and algorithms to sharpen my problem-solving and write code that's both elegant and efficient.</p>
+          <p>Hi, I'm Anvesha Khandelwal, a second-year CS student focused on AI/ML and the full-stack systems that carry it into production. I like taking a model or a pipeline from notebook to something a real user can actually rely on.</p>
+          <p>Beyond building, I actively work on data structures and algorithms — and I've implemented backpropagation and autograd from scratch to properly understand what the libraries are doing underneath.</p>
           <div class="about-highlights">
             <div class="highlight-item">
-              <i class="fas fa-rocket"></i>
-              <span>Building scheduling systems that are simple and effective</span>
+              <i class="fas fa-diagram-project"></i>
+              <span>Building RAG pipelines and LLM-backed APIs with LangChain</span>
             </div>
             <div class="highlight-item">
               <i class="fas fa-lightbulb"></i>
@@ -591,26 +664,8 @@
           <div class="exp-period"><i class="fas fa-calendar-alt" style="font-size:0.75rem"></i> 2026 · Department Initiative</div>
           <p class="exp-desc">Built the official website for the CS department's cultural fest, centralizing event schedules, registration, and information in one seamless platform simplifying access for hundreds of students.</p>
         </div>
-        <!-- <div class="exp-card fade-up">
-          <div class="exp-header">
-            <div class="exp-title">AI / ML Projects</div>
-            <span class="exp-badge">Academic</span>
-          </div>
-          <div class="exp-org">Independent Research & Development</div>
-          <div class="exp-period"><i class="fas fa-calendar-alt" style="font-size:0.75rem"></i> 2023 – Present</div>
-          <p class="exp-desc">Developed AI-powered tools including a visual assistance system for visually impaired users using Computer Vision and NLP, and a voice-controlled interface for hands-free browsing with translation and summarization.</p>
-        </div>
-        <div class="exp-card fade-up">
-          <div class="exp-header">
-            <div class="exp-title">Full Stack Developer</div>
-            <span class="exp-badge">Personal</span>
-          </div>
-          <div class="exp-org">Open Source & Portfolio Projects</div>
-          <div class="exp-period"><i class="fas fa-calendar-alt" style="font-size:0.75rem"></i> 2023 – Present</div>
-          <p class="exp-desc">Built and deployed multiple full-stack applications — from a hotel booking platform (BookMyStay) to a women's safety app (SafeLink) — focusing on real-world utility, clean UX, and production-grade code.</p>
-        </div>
       </div>
-    </div> -->
+    </div>
   </section>
 
   <!-- SKILLS -->
@@ -621,58 +676,73 @@
         <h2>Technical Capabilities</h2>
       </div>
       <div class="skills-grid">
+        <div class="skill-card skill-featured fade-up">
+          <div class="skill-card-head">
+            <div class="skill-icon"><i class="fas fa-brain"></i></div>
+            <span class="skill-tier tier-core">Core</span>
+          </div>
+          <h3>Artificial Intelligence &amp; ML</h3>
+          <div class="tags">
+            <span class="tag">Machine Learning</span><span class="tag">Deep Learning</span>
+            <span class="tag">Backprop from Scratch</span><span class="tag">Computer Vision</span><span class="tag">NLP</span>
+          </div>
+        </div>
+        <div class="skill-card skill-featured fade-up">
+          <div class="skill-card-head">
+            <div class="skill-icon"><i class="fas fa-cube"></i></div>
+            <span class="skill-tier tier-core">Core</span>
+          </div>
+          <h3>AI/ML Libraries &amp; LLM Tooling</h3>
+          <div class="tags">
+            <span class="tag">LangChain</span><span class="tag">RAG</span><span class="tag">Vector DBs</span>
+            <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">TensorFlow</span>
+            <span class="tag">scikit-learn</span><span class="tag">OpenCV</span><span class="tag">HuggingFace</span>
+          </div>
+        </div>
         <div class="skill-card fade-up">
-          <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
+          <div class="skill-card-head">
+            <div class="skill-icon"><i class="fas fa-server"></i></div>
+            <span class="skill-tier">Applied</span>
+          </div>
+          <h3>Backend &amp; Systems</h3>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span>
+            <span class="tag">Redis</span><span class="tag">Celery</span><span class="tag">REST APIs</span><span class="tag">Git</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-card-head">
+            <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
+            <span class="skill-tier">Applied</span>
+          </div>
           <h3>Frontend Engineering</h3>
           <div class="tags">
             <span class="tag">HTML</span><span class="tag">CSS</span>
-            <span class="tag">JavaScript</span><span class="tag">React</span>
+            <span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Next.js</span>
             <span class="tag">UI/UX</span>
           </div>
         </div>
         <div class="skill-card fade-up">
-          <div class="skill-icon"><i class="fas fa-server"></i></div>
-          <h3>Backend & Systems</h3>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">Node.js</span>
-            <span class="tag">Databases</span><span class="tag">REST APIs</span>
-            <span class="tag">Git</span>
+          <div class="skill-card-head">
+            <div class="skill-icon"><i class="fas fa-tools"></i></div>
+            <span class="skill-tier">Applied</span>
           </div>
-        </div>
-        <div class="skill-card fade-up">
-          <div class="skill-icon"><i class="fas fa-brain"></i></div>
-          <h3>Artificial Intelligence</h3>
-          <div class="tags">
-            <span class="tag">Machine Learning</span><span class="tag">Computer Vision</span>
-            <span class="tag">NLP</span><span class="tag">Deep Learning</span>
-          </div>
-        </div>
-        <div class="skill-card fade-up">
-          <div class="skill-icon"><i class="fas fa-cube"></i></div>
-          <h3>AI/ML Libraries</h3>
-          <div class="tags">
-            <span class="tag">LangChain</span><span class="tag">Pandas</span>
-            <span class="tag">NumPy</span><span class="tag">TensorFlow</span>
-            <span class="tag">scikit-learn</span><span class="tag">OpenCV</span>
-            <span class="tag">HuggingFace</span>
-          </div>
-        </div>
-        <div class="skill-card fade-up">
-          <div class="skill-icon"><i class="fas fa-tools"></i></div>
-          <h3>Tools & Platforms</h3>
+          <h3>Tools &amp; Platforms</h3>
           <div class="tags">
             <span class="tag">VS Code</span><span class="tag">Jupyter</span>
-            <span class="tag">Google Colab</span><span class="tag">Figma</span>
+            <span class="tag">Google Colab</span><span class="tag">Docker</span><span class="tag">Figma</span>
             <span class="tag">Linux</span>
           </div>
         </div>
         <div class="skill-card fade-up">
-          <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+          <div class="skill-card-head">
+            <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+            <span class="skill-tier">Exploring</span>
+          </div>
           <h3>Currently Exploring</h3>
           <div class="tags">
-            <span class="tag">Generative AI</span><span class="tag">RAG</span>
-            <span class="tag">Vector DBs</span><span class="tag">LLM APIs</span>
-            <span class="tag">Prompt Engineering</span>
+            <span class="tag">Generative AI</span><span class="tag">LangGraph</span>
+            <span class="tag">Agentic Systems</span><span class="tag">Prompt Engineering</span>
           </div>
         </div>
       </div>
@@ -687,6 +757,67 @@
         <h2>Selected Work</h2>
       </div>
       <div class="projects-grid">
+
+        <!-- LocalPlus (Flagship AI project) -->
+        <div class="project-card project-flagship fade-up">
+          <div class="flagship-visual">
+            <div class="fv-dots"><span></span><span></span><span></span></div>
+            <div class="fv-line">$ docker compose up --build · localhost:3000</div>
+            <div class="fv-role-ticker">
+              Your AI <span class="fv-role-word" id="fv-role-word">Inventory Manager</span><span class="fv-caret">|</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3>LocalPlus</h3>
+            <p>AI-powered SaaS copilot for small Indian retailers — combines demand forecasting, sales analytics, inventory alerts, and LLM-generated marketing content in one platform. FastAPI + PostgreSQL + Redis + Celery backend, Next.js 14 frontend, with Prophet forecasting, RFM segmentation, and Apriori-based recommendations under the hood.</p>
+            <div class="project-tags">
+              <span class="project-tag">AI SaaS</span>
+              <span class="project-tag">FastAPI</span>
+              <span class="project-tag">Next.js</span>
+              <span class="project-tag">LLM APIs</span>
+              <span class="project-tag">Celery</span>
+              <span class="project-tag">Prophet</span>
+            </div>
+            <div class="project-footer">
+              <a href="#" class="btn-view in-progress" onclick="return false;">In Development</a>
+              <div class="project-links">
+                <a href="https://github.com/Anvesha-Khandelwal/ai-business-copilot" target="_blank" title="GitHub (verify link)"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VoiceBridge (Flagship AI project) -->
+        <div class="project-card project-flagship fade-up">
+          <div class="flagship-visual flagship-visual-voice">
+            <div class="fv-mic-row">
+              <div class="fv-mic-icon"><i class="fas fa-microphone"></i></div>
+              <div class="fv-wave">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="fv-role-ticker fv-role-ticker-voice">
+              "<span class="fv-role-word" id="fv-voice-word">Read this page aloud</span>"<span class="fv-caret fv-caret-voice">|</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3>VoiceBridge</h3>
+            <p>Voice-first accessibility layer for the web — hands-free navigation, real-time translation, and on-the-fly summarization driven by speech recognition and NLP, so any page becomes usable without a mouse or sight.</p>
+            <div class="project-tags">
+              <span class="project-tag">NLP</span>
+              <span class="project-tag">Speech Recognition</span>
+              <span class="project-tag">Translation</span>
+              <span class="project-tag">Accessibility</span>
+              <span class="project-tag">RAG (in progress)</span>
+            </div>
+            <div class="project-footer">
+              <a href="https://voicebridge-aouy.onrender.com" target="_blank" class="btn-view">Live <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem"></i></a>
+              <div class="project-links">
+                <a href="https://github.com/Anvesha-Khandelwal/voicebridge" target="_blank"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- BookMyStay -->
         <div class="project-card fade-up">
@@ -754,28 +885,6 @@
           </div>
         </div>
 
-        <!-- VoiceBridge -->
-        <div class="project-card fade-up">
-          <div class="project-img-wrap">
-            <img src="asset/voicebridge.png" alt="VoiceBridge">
-          </div>
-          <div class="project-body">
-            <h3>VoiceBridge</h3>
-            <p>Voice-controlled interface for hands-free navigation and interaction with digital content, featuring translation and summarization.</p>
-            <div class="project-tags">
-              <span class="project-tag">Voice Control</span>
-              <span class="project-tag">NLP</span>
-              <span class="project-tag">Accessibility</span>
-            </div>
-            <div class="project-footer">
-              <a href="https://voicebridge-aouy.onrender.com" target="_blank" class="btn-view">Live <i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem"></i></a>
-              <div class="project-links">
-                <a href="https://github.com/Anvesha-Khandelwal/voicebridge" target="_blank"><i class="fab fa-github"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- VisionVani -->
         <div class="project-card fade-up">
           <div class="project-icon-wrap">
@@ -836,7 +945,7 @@
           <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> India</div>
           <div class="social-row">
             <a href="https://github.com/Anvesha-Khandelwal" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/anvesha-khandelwal09/" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.linkedin.com/in/anvesha-khandelwal-115778320/" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             <a href="mailto:anveshak0906@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
             <!-- <a href="https://twitter.com/AnveshaKhandelwal" class="social-btn" title="Twitter/X"><i class="fab fa-x-twitter"></i></a> -->
           </div>
@@ -957,6 +1066,32 @@
         requestAnimationFrame(draw);
       }
       draw();
+    })();
+
+    // LocalPlus role ticker — cycles through the four AI personas the product plays
+    (function roleTicker() {
+      const el = document.getElementById('fv-role-word');
+      if (!el) return;
+      const roles = ['Inventory Manager', 'Sales Analyst', 'Demand Forecaster', 'Marketing Advisor'];
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % roles.length;
+        el.style.opacity = 0;
+        setTimeout(() => { el.textContent = roles[i]; el.style.opacity = 1; }, 250);
+      }, 2000);
+    })();
+
+    // VoiceBridge command ticker — cycles through what the assistant can act on
+    (function voiceTicker() {
+      const el = document.getElementById('fv-voice-word');
+      if (!el) return;
+      const commands = ['Read this page aloud', 'Translate to Hindi', 'Summarize this article', 'Scroll to the next section'];
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % commands.length;
+        el.style.opacity = 0;
+        setTimeout(() => { el.textContent = commands[i]; el.style.opacity = 1; }, 250);
+      }, 2200);
     })();
 
     // Confetti on stat click
